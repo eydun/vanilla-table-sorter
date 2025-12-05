@@ -5,19 +5,26 @@ th.sortable {
     cursor: pointer;
     user-select: none;
     position: relative;
+    white-space: nowrap;         /* prevent wrapping to new line */
 }
+
 th.sortable svg {
     width: 0.8em;
     height: 0.8em;
-    position: relative;
-    margin: 0.2em;
-    top: 0.2em;
-    transform: translateY(-50%);
+    display: inline-block;       /* keeps icon on same line */
+    vertical-align: middle;      /* aligns with text */
+    margin-left: 0.3em;
     opacity: 0.3;
     transition: opacity 0.2s ease;
 }
-th.sortable.sort-active svg { opacity: 1; }
-th.sortable svg.desc { transform: translateY(-50%) rotate(180deg); }
+
+th.sortable.sort-active svg {
+    opacity: 1;
+}
+
+th.sortable svg.desc {
+    transform: rotate(180deg);
+}
 `;
 
     function ensureStyles() {
