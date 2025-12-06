@@ -40,8 +40,10 @@ Mark sortable headers using the `sortable` class and define the column index usi
 <table id="myTable">
     <thead>
         <tr>
-            <th class="sortable" data-sort-by="0">Name</th>
-            <th class="sortable" data-sort-by="1">Age</th>
+		<th class="sortable" data-sort-by="0">Name
+            <svg viewBox="0 0 10 10"><path d="M5 0 L10 10 L0 10 Z"></path></svg>
+		</th>
+		<th class="sortable" data-sort-by="1">Age</th>
             <th class="sortable" data-sort-by="2">City</th>
         </tr>
     </thead>
@@ -76,7 +78,7 @@ Hold **Shift** when clicking another sortable column to add or change secondary/
 
 ## Demo
 
-Include a sample HTML file under `/demo/index.html` to show how sorting works.
+There is a sample HTML file under [/demo/index.html](/demo/index.html) to show how sorting works.
 
 ---
 
