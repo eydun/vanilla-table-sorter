@@ -1,20 +1,18 @@
 # vanilla-table-sorter
 
 A lightweight, dependency-free ES module that adds sortable behavior to an HTML table.
+
 Supports single-column sorting, multi-column sorting with Shift+click, numeric/text auto-detection, and persistent sort state via localStorage.
 
 ---
 
 ## FEATURES
 
-* ES module (no bundler required)
 * No dependencies (pure JavaScript)
 * Click column header to sort
 * Shift-click for multi-column sorting
 * Auto-detects numeric vs text values
 * Persists sort order using localStorage, per table
-* CSS-controlled visual indicators
-* Minimal setup and API surface
 
 ---
 
@@ -99,13 +97,9 @@ Refreshing the page restores the last sort order.
 
 ### DEMO
 
-Live demo:
+Click to see a demo. 
 
-    https://eydun.github.io/vanilla-table-sorter
-
-Source example:
-
-    /demo/index.html
+[/demo/index.html](/demo/index.html)
 
 ---
 
