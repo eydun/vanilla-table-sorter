@@ -5,17 +5,22 @@ th.sortable {
     cursor: pointer;
     user-select: none;
     position: relative;
-    white-space: nowrap;         /* prevent wrapping to new line */
+    white-space: nowrap;
+}
+
+th.sortable:hover svg {
+    opacity: 0.6;
 }
 
 th.sortable svg {
-    width: 0.8em;
-    height: 0.8em;
-    display: inline-block;       /* keeps icon on same line */
-    vertical-align: middle;      /* aligns with text */
-    margin-left: 0.3em;
-    opacity: 0.3;
-    transition: opacity 0.2s ease;
+    width: 0.9em;
+    height: 0.9em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.4em;
+    opacity: 0.35;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 1px rgba(0,0,0,0.1));
 }
 
 th.sortable.sort-active svg {
@@ -39,8 +44,11 @@ function ensureStyles() {
  * Create a table sorter instance for the given table ID.
  * Usage:
  *   import { tableSorter } from '@eydun/vanilla-table-sorter';
- *   const sorter = tableSorter('demoTable');
- *   sorter.init();
+ *   tableSorter('demoTable').init();
+ *
+ * Add data-sort attribute to <th> elements to make them sortable:
+ *   <th data-sort>Name</th>           - Auto-detect column index
+ *   <th data-sort="0">Name</th>       - Explicit column index
  */
 export function tableSorter(tableId) {
     const STORAGE_KEY = `vts-sortOrders-${tableId}`;
@@ -57,6 +65,43 @@ export function tableSorter(tableId) {
                 return;
             }
 
+            // Setup sortable headers
+            const headers = table.querySelectorAll('th[data-sort]');
+            headers.forEach((th, autoIndex) => {
+                // Determine column index
+                const explicitIndex = th.dataset.sort;
+                const index = explicitIndex !== '' ? parseInt(explicitIndex, 10) : autoIndex;
+
+                if (Number.isNaN(index)) {
+                    console.warn(`[vanilla-table-sorter] Invalid data-sort value:`, th);
+                    return;
+                }
+
+                // Store normalized index
+                th.dataset.sort = index;
+
+                // Add sortable class for styling
+                th.classList.add('sortable');
+
+                // Auto-insert sort icon if not present
+                if (!th.querySelector('svg')) {
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.setAttribute('viewBox', '0 0 16 16');
+                    svg.setAttribute('fill', 'currentColor');
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', 'M8 3.5 L12.5 9.5 L11.2 9.5 L8 5.5 L4.8 9.5 L3.5 9.5 Z');
+                    svg.appendChild(path);
+                    th.appendChild(svg);
+                }
+
+                // Attach click handler
+                th.addEventListener('click', e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.sort(index, e);
+                });
+            });
+
             // Load saved sort state
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -68,17 +113,6 @@ export function tableSorter(tableId) {
             } catch (e) {
                 console.warn('[vanilla-table-sorter] Failed to read sort state from localStorage:', e);
             }
-
-            // Attach click handlers
-            table.querySelectorAll('th.sortable').forEach(th => {
-                th.addEventListener('click', e => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const index = parseInt(th.dataset.sortBy, 10);
-                    if (Number.isNaN(index)) return;
-                    this.sort(index, e);
-                });
-            });
         },
 
         sort(colIndex, event) {
@@ -145,8 +179,8 @@ export function tableSorter(tableId) {
             const table = document.getElementById(tableId);
             if (!table) return;
 
-            table.querySelectorAll('th.sortable').forEach(th => {
-                const index = parseInt(th.dataset.sortBy, 10);
+            table.querySelectorAll('th[data-sort]').forEach(th => {
+                const index = parseInt(th.dataset.sort, 10);
                 const svg = th.querySelector('svg');
 
                 th.classList.remove('sort-active');

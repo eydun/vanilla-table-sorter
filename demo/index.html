@@ -3,57 +3,107 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Vanilla-table-sorter demo</title>
-    <link rel="stylesheet" href="./app.css"/>
+    <script>
+        let dir = location.pathname;
+        if (/\.[^/]+$/.test(dir)) {
+            dir = dir.replace(/\/[^/]*$/, '/');
+        } else if (!dir.endsWith('/')) {
+            dir += '/';
+        }
+        document.write('<link rel="stylesheet" href="' + dir + 'app.css">');
+    </script>
 </head>
 <body>
 
-<h2>Demo: Vanilla table sorter</h2>
+<h2>Chess Ratings - December 2025</h2>
 
 <table id="demoTable">
     <thead>
     <tr>
-        <th class="sortable" data-sort-by="0">Name
-            <svg viewBox="0 0 10 10">
-                <path d="M5 0 L10 10 L0 10 Z"></path>
-            </svg>
-        </th>
-        <th class="sortable" data-sort-by="1">Age
-            <svg viewBox="0 0 10 10">
-                <path d="M5 0 L10 10 L0 10 Z"></path>
-            </svg>
-        </th>
-        <th class="sortable" data-sort-by="2">City
-            <svg viewBox="0 0 10 10">
-                <path d="M5 0 L10 10 L0 10 Z"></path>
-            </svg>
-        </th>
+        <th data-sort>Rank</th>
+        <th data-sort>Player</th>
+        <th data-sort>Rating</th>
+        <th data-sort>Games</th>
+        <th>Country</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>Charlie</td>
-        <td>40</td>
-        <td>Berlin</td>
+        <td>1</td>
+        <td>Helgi Dam Ziska</td>
+        <td>2542</td>
+        <td>13</td>
+        <td>FO</td>
     </tr>
     <tr>
-        <td>Alice</td>
-        <td>30</td>
-        <td>Paris</td>
+        <td>2</td>
+        <td>Høgni Egilstoft Nielsen</td>
+        <td>2391</td>
+        <td>57</td>
+        <td>FO</td>
     </tr>
     <tr>
-        <td>Bob</td>
-        <td>22</td>
-        <td>London</td>
+        <td>3</td>
+        <td>John Arni Nilssen</td>
+        <td>2331</td>
+        <td>27</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Rógvi Egilstoft Nielsen</td>
+        <td>2312</td>
+        <td>38</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Luitjen Akselsson Apol</td>
+        <td>2306</td>
+        <td>59</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>John Rødgaard</td>
+        <td>2237</td>
+        <td>23</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Martin Poulsen</td>
+        <td>2225</td>
+        <td>12</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Ólavur Simonsen</td>
+        <td>2200</td>
+        <td>8</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Joan Hendrik Andreasen</td>
+        <td>2181</td>
+        <td>6</td>
+        <td>FO</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Carl Eli Nolsøe Samuelsen</td>
+        <td>2166</td>
+        <td>-</td>
+        <td>FO</td>
     </tr>
     </tbody>
 </table>
 
 <script type="module">
     import { tableSorter } from '../src/table-sorter.js';
-
-    let sorter;
-    sorter = tableSorter('demoTable');
-    sorter.init();
+    tableSorter('demoTable').init();
 </script>
 
 </body>

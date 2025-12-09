@@ -6,11 +6,6 @@ body {
     color: #333;
 }
 
-h2 {
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-}
-
 #demoTable {
     width: 100%;
     max-width: 800px;
@@ -39,21 +34,9 @@ h2 {
     background: #2980b9;
 }
 
-#demoTable th svg {
-    width: 10px;
-    height: 10px;
-    margin-left: 0.5rem;
-    vertical-align: middle;
-    fill: white;
-}
-
 #demoTable tbody tr {
     border-bottom: 1px solid #ecf0f1;
     transition: background 0.2s;
-}
-
-#demoTable tbody tr:hover {
-    background: #f8f9fa;
 }
 
 #demoTable tbody tr:last-child {

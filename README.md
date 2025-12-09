@@ -34,9 +34,7 @@ npm install github:eydun/vanilla-table-sorte
 
     <script type="module">
         import { tableSorter } from './src/table-sorter.js';
-
-        const sorter = tableSorter('myTable');
-        sorter.init();
+        tableSorter('myTable').init();
     </script>
 
 ---
@@ -45,17 +43,14 @@ npm install github:eydun/vanilla-table-sorte
 
 HTML setup
 
-Mark sortable headers using the sortable class and define the column index using data-sort-by:
+Add `data-sort` attribute to any header you want to make sortable. Sort icons are automatically inserted.
 
     <table id="myTable">
         <thead>
             <tr>
-                <th class="sortable" data-sort-by="0">
-                    Name
-                    <svg viewBox="0 0 10 10"><path d="M5 0 L10 10 L0 10 Z"></path></svg>
-                </th>
-                <th class="sortable" data-sort-by="1">Age</th>
-                <th class="sortable" data-sort-by="2">City</th>
+                <th data-sort>Name</th>
+                <th data-sort>Age</th>
+                <th data-sort>City</th>
             </tr>
         </thead>
         <tbody>
@@ -64,19 +59,13 @@ Mark sortable headers using the sortable class and define the column index using
         </tbody>
     </table>
 
-Each sortable th can contain an optional SVG arrow icon to visualize direction.
-
-#### Example:
-
-    <svg viewBox="0 0 10 10"><path d="M5 0 L10 10 L0 10 Z"></path></svg>
+Column indices are auto-detected from order. For explicit control use `data-sort="0"`, `data-sort="1"`, etc.
 
 Initialize:
 
     <script type="module">
         import { tableSorter } from '@eydun/vanilla-table-sorter';
-
-        const sorter = tableSorter('myTable');
-        sorter.init();
+        tableSorter('myTable').init();
     </script>
 
 Multi-column sorting:
@@ -108,9 +97,7 @@ Click to see a demo.
 Only one entry point:
 
     import { tableSorter } from '@eydun/vanilla-table-sorter';
-
-    const sorter = tableSorter('myTable');
-    sorter.init();
+    tableSorter('myTable').init();
 
 No global state, no framework required.
 
